@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import BuyerRow from './BuyerRow'
 const AllBuyers = (props) => {
-    const [data, Setdata] = useState(props.data);
     const [Name, SetName] = useState('');
     const [Buyers, SetBuyers] = useState(props.data);
     const [pagination, Setpagination] = useState({page: 1, count: 15});
@@ -24,48 +23,49 @@ const AllBuyers = (props) => {
     }
     const GetPrevPage = () => {
         Setpagination(pagination.page - 1 === 0 ? {page: 1, count: pagination.count} : {page: pagination.page - 1, count: pagination.count});
+        SetBuyers(
+            ((pagination.count === 5) && Array.from(props.data).slice(pagination.page*5 - 5, pagination.page * 5)) ||
+            ((pagination.count === 10) && Array.from(props.data).slice(pagination.page*10 - 10, pagination.page * 10)) ||
+            ((pagination.count === 15) && Array.from(props.data).slice(pagination.page*15 - 15, pagination.page * 15)))
     }
-    const SetFivePagination = () => {
-        Setdata(
-            () => {
-                var end = data.lenght > pagination.page * 5 ? pagination.page * 5 : data.lenght;
-                if(!pagination.count === 5)
-                    return props.data.slice(pagination.page*5 - 5, end);
-                else {
-                    Setpagination({page: pagination.page, count: data.lenght})
-                    return props.data;
-                }
-            }
-        )
+    const SetFivePagination = () => {    
+        if(pagination.count === 5){
+            Setpagination({page: pagination.page, count: props.data.lenght});
+            SetBuyers(props.data);
+        }   
+        else {
+            SetBuyers(
+                Array.from(props.data).slice(pagination.page*5 - 5, pagination.page * 5));
+                Setpagination({page: pagination.page, count: 5});
+        }
     }
     const SetTenPagination = () => {
-        Setdata(
-            () => {
-                var end = data.lenght > pagination.page * 10 ? pagination.page * 10 : data.lenght;
-                if(!pagination.count === 10)
-                    return props.data.slice(pagination.page*10 - 10, end);
-                else {
-                    Setpagination({page: pagination.page, count: data.lenght})
-                    return props.data;
-                }
-            }
-        )
-    }
+        if(pagination.count === 10){
+            Setpagination({page: pagination.page, count: props.data.lenght});
+            SetBuyers(props.data);
+        }
+        else{
+            SetBuyers(
+                Array.from(props.data).slice(pagination.page*10 - 10, pagination.page * 10));
+                Setpagination({page: pagination.page, count: 10});
+        }  
+    }  
     const SetFifteenPagination = () => {
-        Setdata(
-            () => {
-                var end = data.lenght > pagination.page * 15 ? pagination.page * 15 : data.lenght;
-                if(!pagination.count === 15)
-                    return props.data.slice(pagination.page*15 - 15, end);
-                else{
-                    Setpagination({page: pagination.page, count: data.lenght})
-                    return props.data;
-                } 
-            }
-        )
+        if(pagination.count === 15){
+            Setpagination({page: pagination.page, count: props.data.lenght});
+            SetBuyers(props.data);
+        }
+        else{
+            SetBuyers(
+                Array.from(props.data).slice(pagination.page*15 - 15, pagination.page * 15));
+                Setpagination({page: pagination.page, count: 15});
+        }  
     }
     const GetNextPage = () => {
-        Setpagination(pagination.page * 15 > data.lenght ? {page: pagination.page, count: pagination.count} : {page: pagination.page + 1, count: pagination.count});
+        Setpagination(pagination.page * 15 > props.data.lenght ? {page: pagination.page, count: pagination.count} : {page: pagination.page + 1, count: pagination.count});
+        SetBuyers(((pagination.count === 5) && Array.from(props.data).slice(pagination.page*5 - 5, pagination.page * 5)) ||
+        ((pagination.count === 10) && Array.from(props.data).slice(pagination.page*10 - 10, pagination.page * 10)) ||
+        ((pagination.count === 15) && Array.from(props.data).slice(pagination.page*15 - 15, props.data.lenght)))
     }
     // const SetPagination = (event) => {
             
