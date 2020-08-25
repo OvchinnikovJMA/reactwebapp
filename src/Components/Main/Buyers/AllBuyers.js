@@ -3,16 +3,16 @@ import BuyerRow from './BuyerRow'
 const AllBuyers = (props) => {
     const [data, Setdata] = useState(props.data);
     const [Name, SetName] = useState('');
-    const [Buyers, SetBuyers] = useState(data);
+    const [Buyers, SetBuyers] = useState(props.data);
     const [pagination, Setpagination] = useState({page: 1, count: 15});
 
     const handleName = (event) => {
         SetName(event.target.value);
         if(event.target.value === '')
         {
-            SetBuyers(data);
+            SetBuyers(props.data);
         }
-        else SetBuyers(Array.from(data).filter(elem => elem.name.startsWith(event.target.value)))
+        else SetBuyers(Array.from(props.data).filter(elem => elem.name.startsWith(event.target.value)))
     }
     const TableClick = (event) => {
         event.target.className === "AverageCheck" && SetBuyers(
@@ -89,7 +89,7 @@ const AllBuyers = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(
+                    {Buyers.map(
                         (e) => {
                             return(
                                 <BuyerRow user={e}/>
