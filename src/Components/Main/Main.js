@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
  
 import SideBar from './SideBar/SideBar';
 import Buyers from './Buyers/Buyers';
@@ -24,7 +24,7 @@ const Main = (props) => {
         {ID: 19, name: 'Ольга', AverageCheck: 1257.23, Purchases: 144, TotalProfit: 134265},
         {ID: 10, name: 'Ольга', AverageCheck: 457.20, Purchases: 9, TotalProfit: 3582},
     ];
-    const NoMatchPage = () => {return (<h3 class="Error">404 - Not found</h3>);};
+    const NoMatchPage = () => {return (<div class="Error"><h3 >404 - Not found</h3></div>);};
     const [login, SetLogin] = useState('');
     const handleLogin = (event) => {
         SetLogin(event.target.value);
@@ -40,7 +40,7 @@ const Main = (props) => {
             <div className="Main">
                 <Switch>
                     <Route exact path="/" render={ () => 
-                        (<AuthAndSideBar login={login} handleLogin={handleLogin} handleAuth={handleAuth}/>)}/>
+                        (localStorage.length === 0 ? <AuthAndSideBar login={login} handleLogin={handleLogin} handleAuth={handleAuth}/> : <Redirect to="/buyers"/>)}/>
                     <Route path="/buyers" render={() => <Buyers NoMatchPage={NoMatchPage} data={data}/>}/>
                     <Route path="/terminals" component={Terminals}/>
                     <Route component={NoMatchPage}/>
