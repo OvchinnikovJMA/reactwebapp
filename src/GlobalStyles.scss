@@ -29,20 +29,19 @@
 }
 .Sidebar{
     position: absolute;
-    top: 11%;
-    left: 0;
+    top: 12%;
+    left: 1%;
     width: 20%;
-    box-shadow: 0 2px 8px #333;
 }
 .sidebar-sticky{
     position: -webkit-sticky;
     position: sticky;
     border-bottom: 1px solid #37B6CE;
-    margin: 0 2%;
+    box-shadow: 0 2px 8px #333;
 }
 
 .sidebar-heading{
-    margin-top: 2%;
+    padding-top: 2%;
 
     background-color: #37B6CE;
     color: white;
